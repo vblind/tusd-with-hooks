@@ -1,0 +1,40 @@
+services:
+  vblind-tusd:
+    build:
+      context: ../
+      dockerfile: build/api/Dockerfile
+    command: /app
+    environment:
+      ENV: test
+      DB_HOST: vblind-api-db
+      DB_PORT: 5432
+      DB_USERNAME: vblind_user
+      DB_PASSWORD: vblind_password
+      DB_NAME: vblind
+      DB_SSL_ENABLE: false
+    ports:
+      - 8084:8084
+    volumes:
+      - /home/irvine/disk_g/repository/static:/uploads
+    networks:
+      - vblind-network
+    # depends_on:
+    #   clamav:
+    #     condition: service_completed_successfully
+    # clamav:
+    #   image: mkodockx/docker-clamav:alpine
+    #   environment:
+    #     CLAMD_CONF_MaxFileSize: 1024M
+    #     CLAMD_CONF_MaxScanSize: 1024M
+    #     CLAMD_CONF_StreamMaxLength: 1024M
+    #   restart: always
+    #   ports:
+    #     - "3311:3310"
+    #   networks:
+    #     - vblind-network
+
+
+networks:
+  vblind-network:
+
+
